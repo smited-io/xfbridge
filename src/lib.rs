@@ -14,6 +14,7 @@ type Error = Box<dyn std::error::Error>;
 pub const USER_AGENT: &str = "xfbridge";
 
 /// The XenForo bridge api.
+#[derive(Debug, Clone)]
 pub struct XfBridge {
     base_url: String,
     api_key: String,
