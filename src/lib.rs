@@ -18,6 +18,7 @@ pub const USER_AGENT: &str = "xfbridge";
 pub struct XfBridge {
     base_url: String,
     api_key: String,
+    su_id: Option<i32>
 }
 
 impl XfBridge {
@@ -26,10 +27,12 @@ impl XfBridge {
     /// # Arguments
     /// * `base_url`    - The base url to access.
     /// * `api_key`     - The api key to use.
-    pub fn new(base_url: &str, api_key: &str) -> Self {
+    /// * `su_id`       - The id of the user if the targeted endpoint requires a super user key.
+    pub fn new(base_url: &str, api_key: &str, &su_id: Option<i32>) -> Self {
         Self {
             base_url: base_url.to_string(),
             api_key: api_key.to_string(),
+            su_id
         }
     }
 
@@ -38,6 +41,9 @@ impl XfBridge {
         let mut headers = HeaderMap::new();
         headers.insert("User-Agent", HeaderValue::from_str(USER_AGENT)?);
         headers.insert("XF-Api-Key", HeaderValue::from_str(&self.api_key)?);
+        if &self.su_id.is_some() {
+            headers.insert("XF-Api-User", HeaderValue::from(&self.su_id.unwrap()));
+        }
         headers.insert(
             "Content-Type",
             HeaderValue::from_str("application/x-www-form-urlencoded")?,
