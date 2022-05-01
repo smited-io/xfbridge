@@ -41,8 +41,8 @@ impl XfBridge {
         let mut headers = HeaderMap::new();
         headers.insert("User-Agent", HeaderValue::from_str(USER_AGENT)?);
         headers.insert("XF-Api-Key", HeaderValue::from_str(&self.api_key)?);
-        if &self.su_id.is_some() {
-            headers.insert("XF-Api-User", HeaderValue::from(&self.su_id.unwrap()));
+        if self.su_id.is_some() {
+            headers.insert("XF-Api-User", HeaderValue::from(self.su_id.unwrap()));
         }
         headers.insert(
             "Content-Type",
