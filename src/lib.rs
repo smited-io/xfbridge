@@ -28,7 +28,7 @@ impl XfBridge {
     /// * `base_url`    - The base url to access.
     /// * `api_key`     - The api key to use.
     /// * `su_id`       - The id of the user if the targeted endpoint requires a super user key.
-    pub fn new(base_url: &str, api_key: &str, &su_id: Option<i32>) -> Self {
+    pub fn new(base_url: &str, api_key: &str, su_id: Option<i32>) -> Self {
         Self {
             base_url: base_url.to_string(),
             api_key: api_key.to_string(),
